@@ -85,7 +85,7 @@
 
                                <label>Profile Picture</label>
 
-                               <input type="file" class="form-control form-height-custom" name="c_image" required>
+                               <input type="file" class="form-control form-height-custom" name="c_image" >
 
                            </div><!-- form-group Finish -->
 
@@ -154,15 +154,15 @@ if(isset($_POST['register'])){
     $c_image_tmp = $_FILES['c_image']['tmp_name'];
 
     $shop=$_POST['shop'];
-
+   
     move_uploaded_file($c_image_tmp,"trader/trader_images/$c_image");
 
-    $insert_customer = "insert into TRADER(TRADER_NAME,TRADER_EMAIL,TRADER_PASSWORD,TRADER_ADDRESS,TRADER_NUMBER,TRADER_IMAGE   ) 
+    $insert_trader = "insert into TRADER(TRADER_NAME,TRADER_EMAIL,TRADER_PASSWORD,TRADER_ADDRESS,TRADER_NUMBER,TRADER_IMAGE) 
                 values ('$c_name','$c_email','$c_pass','$c_address','$c_number','$c_image')";
 
-    $run_customer = oci_parse($con,$insert_customer);
+    $run_trader = oci_parse($con,$insert_trader);
 
-        oci_execute($run_customer);
+        oci_execute($run_trader);
 
 
 

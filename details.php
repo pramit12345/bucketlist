@@ -2,7 +2,7 @@
 
     $active='Cart';
     include("includes/db.php");
-    // error_reporting(0);
+     error_reporting(0);
 
 ?>
 <!doctype html>
@@ -123,14 +123,15 @@ include("includes/header.php");
     
 </form>
 
-<hr>
-<form action="" method="post">     
-       <ul class="review">
+<div class="ht__pro__desc">
+        <div class="sin__desc">
+         <p><span>Description : </span><?php echo $pro_desc; ?></p>
+        </div>
+        <div class="ht__pro__desc">
+        <div class="sin__desc">
+         <p><span>Allergy Info : </span> <?php echo $pro_allg; ?></p>
+        </div>  
 
-       <textarea class="form-control" rows="2" placeholder="Write your review here..." name="name" id="remark" required></textarea><br> 
-       <p class="text-right checkout-buttons" ><button class="btn btn-sceondary icon-note" type="submit" name="add"> Submit Review</button></p>
-    </ul>
-</form>
        </div>
       </div>
      </div>
@@ -189,28 +190,43 @@ label.star:before {
   font-family: FontAwesome;
 }
 </style>
-  <form action="">
-    <input class="star star-5" id="star-5" type="radio" name="star"/>
-    <label class="star star-5" for="star-5"></label>
-    <input class="star star-4" id="star-4" type="radio" name="star"/>
-    <label class="star star-4" for="star-4"></label>
-    <input class="star star-3" id="star-3" type="radio" name="star"/>
-    <label class="star star-3" for="star-3"></label>
-    <input class="star star-2" id="star-2" type="radio" name="star"/>
-    <label class="star star-2" for="star-2"></label>
-    <input class="star star-1" id="star-1" type="radio" name="star"/>
-    <label class="star star-1" for="star-1"></label>
-  </form>
 </div>
 
+<form action="" method="post">     
+       <ul class="review">
+       <input class="star star-5" id="star-5" type="radio" name="r"/>
+    <label class="star star-5" for="star-5"></label>
+    <input class="star star-4" id="star-4" type="radio" name="r"/>
+    <label class="star star-4" for="star-4"></label>
+    <input class="star star-3" id="star-3" type="radio" name="r"/>
+    <label class="star star-3" for="star-3"></label>
+    <input class="star star-2" id="star-2" type="radio" name="r"/>
+    <label class="star star-2" for="star-2"></label>
+    <input class="star star-1" id="star-1" type="radio" name="r"/>
+    <label class="star star-1" for="star-1"></label>
 
-      <div role="tabpanel" id="description" >
-       <div class="pro__tab__content__inner">
-       <p><span>Description :  </span><?php echo $pro_desc; ?></p>
-       <p><span>Allergy Info :  </span><?php echo $pro_allg; ?></p>
-       </div>
-      </div>
-      <!-- End Single Content -->
+       <textarea class="form-control" rows="2" placeholder="Write your review here..." name="name" id="remark" required></textarea><br> 
+       <p class="text-right checkout-buttons" ><button class="btn btn-sceondary icon-note" type="submit" value="review"
+        name="add"> Submit Review</button></p>
+    </ul>
+</form>
+<?php
+
+if(isset($_POST['add'])){
+   
+    $review_desc = $_POST['name'];
+    $review_rate = $_POST['r'];
+    
+    $select_review = "insert into REVIEW (REVIEW_DESC,PRODUCT_ID,RATING) values('$review_desc','$product_id','$review_rate')";
+    
+    $run_review = oci_parse($con,$select_review);
+
+    oci_execute($run_review);
+
+}
+?>
+<br>
+<hr>
       
      </div>
     </div>

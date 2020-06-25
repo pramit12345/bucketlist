@@ -242,9 +242,7 @@ if(isset($_POST['submit'])){
 
 
     $product_img1 = $_FILES['product_img1']['name'];
-    $product_img2 = $_FILES['product_img2']['name'];
-    $product_img3 = $_FILES['product_img3']['name'];
-
+   
     $temp_name1 = $_FILES['product_img1']['tmp_name'];
    
 
@@ -256,7 +254,7 @@ if(isset($_POST['submit'])){
       $tf = oci_parse($con,$e);
       oci_execute($tf);
       $rh = oci_fetch_array($tf);
-      $t_id = $rh['TRADER_ID'];
+      $t_id = $rh['ID'];
       
       
     $insert_product = "insert into PRODUCT (PRODUCT_TITLE,PRODUCT_DATE,PRODUCT_IMG1,

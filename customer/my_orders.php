@@ -78,7 +78,7 @@
                 $order_invoice = $row_all['ORDER_INVOICE'];
                 $order_amount = $row_all['ORDER_AMOUNT'];
                 $order_quantity = $row_all['QTY'];
-                $orderi = $row_all['PRODUCT_ID'];
+                $orderi = $row_all['P_ID'];
 
 
 
@@ -96,6 +96,7 @@
                 <td> <?php echo $order_date; ?> </td>
                 <td> <?php echo $order_status; ?> </td>
                  <td> <?php echo $orderi; ?> </td>
+                
                  <td><a href="invoice.php?invoice_no=<?php echo $order_invoice;?>" class="btn btn-info btn-md" target="_blank">View Invoice</a>
                  </td>
 

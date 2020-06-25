@@ -115,7 +115,7 @@ include("includes/header.php");
         <div class="main">
          <h3 class="name">Pramit Ghimire</h3>
          <p class="profession">Team Lead</p>
-         <p class="text-center"></p>
+         <p class="text-center">"I love to work as a team leader."</p>
         </div>
        </div>
       </div>

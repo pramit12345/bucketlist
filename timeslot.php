@@ -1,7 +1,13 @@
 
-
 <!DOCTYPE html>
 <html>
+
+<?php
+
+
+include("includes/header.php");
+
+?>
 
 <head>
 	<hr>  
@@ -15,10 +21,10 @@
 <body>
 
 
-<div class="col-md-7" id="cart">
+<div class="col-md-11" id="cart">
 	<div class="box">
 		<form action="" method="post" enctype="multipart-form-data">
-			<h1>Collection Time Slot</h1>
+			<h1>Choose Your collection Time Slot to Complete your order</h1>
   <?php
   $ip_add=getRealIpUser();
   $select_cart ="SELECT * FROM CART WHERE IP_ADD ='$ip_add'";
@@ -70,7 +76,7 @@
 
                  <tfoot>
 <tr>
-<td><label>Delivery Day: </label><span class="pull-right">
+<td><label>Choose Your Day: </label><span class="pull-right">
 
 <?php
 date_default_timezone_set('Asia/Kathmandu');
@@ -115,7 +121,7 @@ $datenow = date("l");
 
 
 <tr>
-<td><label>Delivery Time: </label><span class="pull-right">
+<td><label>Choose Your Time: </label><span class="pull-right">
 
 <?php
 date_default_timezone_set('Asia/Kathmandu');
@@ -185,68 +191,25 @@ if (isset($_POST['submit'])){
   $row_id =oci_fetch_array($run_id);
   $c_id =$row_id['CUSTOMER_ID'];
 
+
   }
 
-  $get_times="INSERT INTO TIMESLOT(C_DAY,C_TIME,C_CREATED, CUSTOMER_ID) VALUES('$day','$time',sysdate,'$c_id')";
+  $get_times="INSERT INTO TIMESLOT(C_DAY,C_TIME,C_CREATED,CUSTOMER_ID)
+     VALUES('$day','$time',sysdate,'$c_id')";
     $run_times =oci_parse($con, $get_times);
   oci_execute($run_times);
 
 
 
-  echo "<script>window.open('payment_options.php','_self')</script>";
+  echo "<script>window.open('customer/my_account.php?my_orders','_self')</script>";
 
 
 }
     ?>
 
-	</div>
-
-
-
-<hr>
-<hr>
-
-
-
-</div>
-
-<div class="col-md-9">
-<div class="box" id="order-summery">
-	<div class="box-header">
-<h1>Order Summery</h1>
-	</div>
-	<p class="text-muted">
-		Shipping and Additional costs .
-	</p>
-	<div class="table-responsive">
-		<table class="table">
-		  <tbody>
-		  	<tr>
-		  		<td>Order Total</td>
-		  		<th>$<?php echo $total; ?></th>
-		  	</tr>
-		  	<tr>
-		  		<td>Shipping and handling</td>
-		  		<td>$0.00</td>
-		  	</tr>
-		  	<tr>
-		  		<td>Tax</td>
-		  		<th>$0.00</th>
-		  	</tr>
-        <tr>
-          <td><strong>Total</strong></td>
-          <th><strong>$ <?php echo $total; ?></strong></th>
-        </tr>
-
-
-		  </tbody>
-
-		</table>
-	</div>
-</div>
-</div>
-</div>
-</div>
+  </div>
+  
+  
 
 
 </body>

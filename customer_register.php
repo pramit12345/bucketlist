@@ -173,39 +173,35 @@ if(isset($_POST['register'])){
     $c_image_tmp = $_FILES['c_image']['tmp_name'];
 
     $c_ip = getRealIpUser();
+
+    $key = md5(time().$c_email);
     
     move_uploaded_file($c_image_tmp,"customer/customer_images/$c_image");
     
     $insert_customer = "insert into CUSTOMER(CUSTOMER_NAME,CUSTOMER_EMAIL,
-    CUSTOMER_PASSWORD,CUSTOMER_ADDRESS,CUSTOMER_NUMBER,CUSTOMER_IMAGE,CUSTOMER_IP)
-     values ('$c_name','$c_email','$c_pass','$c_address','$c_number','$c_image','$c_ip')";
+    CUSTOMER_PASSWORD,CUSTOMER_ADDRESS,CUSTOMER_NUMBER,CUSTOMER_IMAGE,CUSTOMER_IP,KEY)
+     values ('$c_name','$c_email','$c_pass','$c_address','$c_number','$c_image','$c_ip',$key)";
     
     $run_customer = oci_parse($con,$insert_customer);
 
-    oci_execute($run_customer);
+    $g = oci_execute($run_customer);
 
-    // if($g)
-    // {
-    // //   $to  = $c_email;
-    // //   $subject = "Confirmation";
-    // //   $message = 'Thank You 
+    if($g)
+    {
+      $to  = $c_email;
+      $subject = "Confirmation";
+      $message = 'Thank You 
 
 
-    // //   <a href="http://localhost/webproject/verify.php?key=$to"></a>
-    // //     ';
+      <a href="http://localhost/mainproject/verify.php?key=$to"></a>
+        ';
 
-    // //     $head='from: Team Bucketlist';
-    // //     $z=mail($to,$subject,$message,$head);
+        $head='from: TEAMBUCKETLIST';
+        mail($to,$subject,$message,$head);
 
-    //     $sub = "Account Confirmation";
-    //     $msg = "Click the link below to register
-    //     <a href='http://localhost/webproject/verify.php?key=$to'></a>            
-    //     ";
-    //     $rec = $c_email;
 
-    //     mail($rec,$sub,$msg);
-        
-    // }
+
+    }
     
     $sel_cart = "select * from cart where IP_ADD='$c_ip'";
     
@@ -221,8 +217,9 @@ if(isset($_POST['register'])){
         
         $_SESSION['CUSTOMER_EMAIL']=$c_email;
         
+        echo "<script>alert('Please check your email and open the verification link.')</script>";
         
-        echo "<script>window.open('shop.php','_self')</script>";
+        echo "<script>window.open('checkout.php','_self')</script>";
         
     }else{
         
@@ -230,11 +227,14 @@ if(isset($_POST['register'])){
         
         $_SESSION['CUSTOMER_EMAIL']=$c_email;
         
+        echo "<script>alert('Please check your email and open the verification link..')</script>";
         
         echo "<script>window.open('index.php','_self')</script>";
         
     }
     
 }
+
+
 
 ?>

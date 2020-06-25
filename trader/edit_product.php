@@ -30,15 +30,12 @@
 
         $p_image1 = $row_edit['PRODUCT_IMG1'];
 
-        $p_image2 = $row_edit['PRODUCT_IMG2'];
-
-        $p_image3 = $row_edit['PRODUCT_IMG3'];
-
         $p_price = $row_edit['PRODUCT_PRICE'];
 
 
 
         $p_desc = $row_edit['PRODUCT_DESC'];
+        $p_allg = $row_edit['PRODUCT_ALLG'];
 
         $p_quan = $row_edit['PRODUCT_QUANTITY'];
 
@@ -85,7 +82,7 @@
 
                <h3 class="panel-title"><!-- panel-title Begin -->
 
-                   <i class="fa fa-money fa-fw"></i> Insert Product
+                   <i class="fa fa-money fa-fw"></i> Update Product
 
                </h3><!-- panel-title Finish -->
 
@@ -107,56 +104,6 @@
 
                    </div><!-- form-group Finish -->
 
-
-
-
-                   <div class="form-group"><!-- form-group Begin -->
-
-                      <label class="col-md-3 control-label"> Product Image 1 </label>
-
-                      <div class="col-md-6"><!-- col-md-6 Begin -->
-
-                          <input name="product_img1" type="file" class="form-control" required>
-
-                          <br>
-
-                          <img width="70" height="70" src="product_images/<?php echo $p_image1; ?>" alt="<?php echo $p_image1; ?>">
-
-                      </div><!-- col-md-6 Finish -->
-
-                   </div><!-- form-group Finish -->
-
-                   <div class="form-group"><!-- form-group Begin -->
-
-                      <label class="col-md-3 control-label"> Product Image 2 </label>
-
-                      <div class="col-md-6"><!-- col-md-6 Begin -->
-
-                          <input name="product_img2" type="file" class="form-control">
-
-                          <br>
-
-                          <img width="70" height="70" src="product_images/<?php echo $p_image2; ?>" alt="<?php echo $p_image2; ?>">
-
-                      </div><!-- col-md-6 Finish -->
-
-                   </div><!-- form-group Finish -->
-
-                   <div class="form-group"><!-- form-group Begin -->
-
-                      <label class="col-md-3 control-label"> Product Image 3 </label>
-
-                      <div class="col-md-6"><!-- col-md-6 Begin -->
-
-                          <input name="product_img3" type="file" class="form-control form-height-custom">
-
-                          <br>
-
-                          <img width="70" height="70" src="product_images/<?php echo $p_image3; ?>" alt="<?php echo $p_image3; ?>">
-
-                      </div><!-- col-md-6 Finish -->
-
-                   </div><!-- form-group Finish -->
 
                    <div class="form-group"><!-- form-group Begin -->
 
@@ -193,6 +140,22 @@
                           <textarea name="product_desc" cols="19" rows="6" class="form-control">
 
                               <?php echo $p_desc; ?>
+
+                          </textarea>
+
+                      </div><!-- col-md-6 Finish -->
+
+                   </div><!-- form-group Finish -->
+
+                   <div class="form-group"><!-- form-group Begin -->
+
+                      <label class="col-md-3 control-label"> Product Allergy </label>
+
+                      <div class="col-md-6"><!-- col-md-6 Begin -->
+
+                          <textarea name="product_allg" cols="19" rows="6" class="form-control">
+
+                              <?php echo $p_allg; ?>
 
                           </textarea>
 
@@ -239,20 +202,15 @@ if(isset($_POST['update'])){
     $product_quantity = $_POST['product_quantity'];
 
     $product_desc = $_POST['product_desc'];
+   
+    $product_allg = $_POST['product_allg'];
 
-    $product_img1 = $_FILES['product_img1']['name'];
-    $product_img2 = $_FILES['product_img2']['name'];
-    $product_img3 = $_FILES['product_img3']['name'];
 
-    $temp_name1 = $_FILES['product_img1']['tmp_name'];
-    $temp_name2 = $_FILES['product_img2']['tmp_name'];
-    $temp_name3 = $_FILES['product_img3']['tmp_name'];
 
-    move_uploaded_file($temp_name1,"product_images/$product_img1");
-    move_uploaded_file($temp_name2,"product_images/$product_img2");
-    move_uploaded_file($temp_name3,"product_images/$product_img3");
 
-    $update_product = "update product set PRODUCT_DATE=sysdate,PRODUCT_TITLE='$product_title',PRODUCT_IMG1='$product_img1',PRODUCT_IMG2='$product_img2',PRODUCT_IMG3='$product_img3',PRODUCT_DESC='$product_desc',PRODUCT_PRICE='$product_price',PRODUCT_QUANTITY='$product_quantity' where PRODUCT_ID='$p_id'";
+   
+
+    $update_product = "update product set PRODUCT_DATE=sysdate,PRODUCT_TITLE='$product_title',PRODUCT_DESC='$product_desc',PRODUCT_ALLG='$product_allg',PRODUCT_PRICE='$product_price',PRODUCT_QUANTITY='$product_quantity' where PRODUCT_ID='$p_id'";
 
     $run_product = oci_parse($con,$update_product);
 

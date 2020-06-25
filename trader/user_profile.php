@@ -14,7 +14,7 @@
 
         $edit_user = $_GET['user_profile'];
 
-        $get_user = "select * from TRADER where TRADER_ID='$edit_user'";
+        $get_user = "select * from TRADER where ID='$edit_user'";
 
         $run_user = oci_parse($con,$get_user);
 
@@ -22,7 +22,7 @@
 
         $row_user = oci_fetch_array($run_user);
 
-        $user_id = $row_user['TRADER_ID'];
+        $user_id = $row_user['ID'];
 
         $user_name = $row_user['TRADER_NAME'];
 
@@ -185,7 +185,7 @@ if(isset($_POST['update'])){
 
     move_uploaded_file($temp_admin_image,"trader_images/$user_image");
 
-    $update_user = "update trader set TRADER_NAME='$user_name',TRADER_EMAIL='$user_email',TRADER_PASSWORD='$user_pass',TRADER_NUMBER='$user_contact',TRADER_IMAGE='$user_image' where TRADER_ID='$user_id'";
+    $update_user = "update trader set TRADER_NAME='$user_name',TRADER_EMAIL='$user_email',TRADER_PASSWORD='$user_pass',TRADER_NUMBER='$user_contact',TRADER_IMAGE='$user_image' where ID='$user_id'";
 
     $run_user = oci_parse($con,$update_user);
 

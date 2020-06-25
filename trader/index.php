@@ -19,7 +19,7 @@
 
         $row_admin = oci_fetch_array($run_admin);
 
-        $admin_id = $row_admin['TRADER_ID'];
+        $admin_id = $row_admin['ID'];
 
         $admin_name = $row_admin['TRADER_NAME'];
 

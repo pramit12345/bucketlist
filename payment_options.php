@@ -2,6 +2,7 @@
 <div class="col-md-7" id="cart">
 	<div class="box">
         <form action="" method="post" enctype="multipart-form-data">
+        <br>
           <h1>Collection Time Slot</h1>
           <p class="text-muted">
     Timing are avilable after 24 Hours

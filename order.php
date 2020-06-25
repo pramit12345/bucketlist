@@ -29,7 +29,7 @@ foreach ($row as $key) {
  oci_execute($run);
  $row1= oci_fetch_array($run);
  $time_id=$row1['T_ID'];
- $update="UPDATE TIMESLOT SET ORDER_INVOICE='$invoice_no' WHERE T_ID='$time_id'";
+ $update="UPDATE TIMESLOT SET ORDER_INV='$invoice_no' WHERE T_ID='$time_id'";
  $run_update=oci_parse($con, $update);
  oci_execute($run_update);
 }
@@ -78,7 +78,7 @@ while($row_cart =oci_fetch_array($run_cart)){
     $rh = oci_fetch_array($tf);
     $customer_id = $rh['CUSTOMER_ID'];
 
-    $insert_customer_order ="INSERT INTO CUSTOMER_ORDER(ORDER_AMOUNT,ORDER_INVOICE,ORDER_DATE,ORDER_STATUS,CUSTOMER_ID,PRODUCT_ID,QTY) 
+    $insert_customer_order ="INSERT INTO CUSTOMER_ORDER(ORDER_AMOUNT,ORDER_INVOICE,ORDER_DATE,ORDER_STATUS,CUSTOMER_ID,P_ID,QTY) 
     VALUES('$sub_total', '$invoice_no', '$date','$status','$customer_id','$pro_id','$pro_qty')";
         $run_customer_order =oci_parse($con,$insert_customer_order);
     oci_execute($run_customer_order);

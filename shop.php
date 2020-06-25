@@ -103,7 +103,7 @@
                         $page=1;
 
                       $start_from=($page-1) * $per_page;
-                      $get_products = " select *  from product where rownum <=12 order by 1 DESC ";
+                      $get_products = " select *  from product where rownum <=18 order by 1 DESC ";
                       $run_products=oci_parse($con,$get_products);
                       oci_execute($run_products);
                       while($row_products=oci_fetch_array($run_products))

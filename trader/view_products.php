@@ -42,6 +42,7 @@
                                 <th> Product Image </th>
                                 <th> Product Price </th>
                                    <th> Product Description </th>
+                                   <th> Product Allergy </th>
                                 <th> Product Date </th>
                                 <th> Product Quantity </th>
                                 </th>
@@ -61,7 +62,7 @@
                                 $tk = oci_parse($con,$ky);
                                 oci_execute($tk);
                                 $th = oci_fetch_array($tk);
-                                  $t_id = $th['TRADER_ID'];
+                                  $t_id = $th['ID'];
 
 
                                 $i=0;
@@ -83,6 +84,9 @@
                                     $pro_price = $row_pro['PRODUCT_PRICE'];
 
                                     $pro_keywords = $row_pro['PRODUCT_DESC'];
+                                    
+                                    $pro_allg = $row_pro['PRODUCT_ALLG'];
+
 
                                     $pro_date = $row_pro['PRODUCT_DATE'];
 
@@ -99,6 +103,7 @@
                                 <td> $ <?php echo $pro_price; ?> </td>
 
                                 <td>  <?php echo $pro_keywords; ?> </td>
+                                <td>  <?php echo $pro_allg; ?> </td>
                                 <td> <?php echo $pro_date ?> </td>
                                 <td> <?php echo $pro_quantity ?> </td>
                                 <td>
