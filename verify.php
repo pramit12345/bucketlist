@@ -3,20 +3,20 @@ include("includes/db.php");
 
 ?>
 
-
-
 <?php
 
-if (isset($_GET['key'])) {
+if (isset($_GET['token'])) {
     # code...
-		$st = "UPDATE CUSTOMER SET STATUS = '1' WHERE CUSTOMER_ID = (SELECT max(CUSTOMER_ID) FROM CUSTOMER) ";
+		$token =  $_GET['token'];
+		$updatequery = "update customer set STATUS='ACTIVE' where token='$token'";
 
-		$qry = oci_parse($con, $st);
-		oci_execute($qry);
-		header("Location:index.php");
+		$update = oci_parse($con,$updatequery);
 
-    }else{
-    	echo "Fail! Please try again";
-    }
-
+			oci_execute($update);
+			
+			if($update)
+			{
+				echo "<script>window.open('checkout.php','_self')</script>";
+			}
+}
 ?>

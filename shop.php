@@ -96,6 +96,15 @@
 
                          $page=$_GET['page'];
                       }
+                       elseif(!isset($_GET['p_shop'])){
+
+                      $per_page=6;
+                      if(isset($_GET['page']))
+
+                      {
+
+                         $page=$_GET['page'];
+                      }
 
 
                       else
@@ -152,6 +161,7 @@
                       }
                        }
                      }
+                 }
 
                     ?>
 
@@ -160,8 +170,10 @@
               
                  <?php
                    getcatpro();
+                   getshoppro();
+                   ?>
 
-                 ?>
+                 
               
      
         
@@ -196,10 +208,11 @@
 
                             <div class="htc__category">
                                 <h4 class="title__line--4">Shop</h4>
-                                    <ul class="ht__cat__list">
+                                    <ul class="ht__cat__list"> 
                                     <?php getshop();?>
+                                </ul>
 
-                                    </ul>
+                                    
                             </div>
                  
                          

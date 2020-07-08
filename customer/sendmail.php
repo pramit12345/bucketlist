@@ -39,7 +39,7 @@ $total=0;
   $run_info_invoice=oci_parse($con, $get_info_invoice);
   oci_execute($run_info_invoice);
   while($row_info_invoice=oci_fetch_array($run_info_invoice)){
-  $id_c_invoice =$row_info_invoice['PRODUCT_ID'];
+  $id_c_invoice =$row_info_invoice['P_ID'];
  $product_qty=$row_info_invoice['QTY'];
 
   $get_info_product ="SELECT * FROM PRODUCT WHERE PRODUCT_ID='$id_c_invoice'";

@@ -62,7 +62,7 @@ include('includes/header.php');
         if(isset($_GET['query']))
         {
           $keywords = $_GET['query'];
-        $get_products = " select *  from PRODUCT where PRODUCT_IMG1 like '%$keywords%' ";
+        $get_products = " select *  from PRODUCT where PRODUCT_TITLE like '%$keywords%'";
         $run_products=oci_parse($con,$get_products);
         oci_execute($run_products);
         while($row_products=oci_fetch_array($run_products))

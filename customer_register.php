@@ -14,7 +14,7 @@
         <nav class="bradcaump-inner">
         <a class="breadcrumb-item" href="index.php">Home</a>
         <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-        <span class="breadcrumb-item active">LogIn</span>
+        <span class="breadcrumb-item active">Register</span>
         </nav>
         </div>
         </div>
@@ -37,7 +37,7 @@
   
   <hr>
    <div class="form-icon">
-    <h1 class="center"> User Log IN </h1>
+    <h1 class="center"> User Register </h1>
     <hr>
    </div>
    <div class="form-group">
@@ -154,8 +154,6 @@
 <?php 
 
 
-
-
 if(isset($_POST['register'])){
     
     $c_name = $_POST['c_name'];
@@ -174,67 +172,49 @@ if(isset($_POST['register'])){
 
     $c_ip = getRealIpUser();
 
-    $key = md5(time().$c_email);
+    $token = bin2hex(random_bytes(15));
+
     
     move_uploaded_file($c_image_tmp,"customer/customer_images/$c_image");
     
     $insert_customer = "insert into CUSTOMER(CUSTOMER_NAME,CUSTOMER_EMAIL,
-    CUSTOMER_PASSWORD,CUSTOMER_ADDRESS,CUSTOMER_NUMBER,CUSTOMER_IMAGE,CUSTOMER_IP,KEY)
-     values ('$c_name','$c_email','$c_pass','$c_address','$c_number','$c_image','$c_ip',$key)";
+    CUSTOMER_PASSWORD,CUSTOMER_ADDRESS,CUSTOMER_NUMBER,CUSTOMER_IMAGE,CUSTOMER_IP,STATUS,TOKEN)
+     values ('$c_name','$c_email','$c_pass','$c_address','$c_number','$c_image','$c_ip','INACTIVE','$token')";
     
     $run_customer = oci_parse($con,$insert_customer);
 
     $g = oci_execute($run_customer);
 
+    
     if($g)
     {
       $to  = $c_email;
-      $subject = "Confirmation";
-      $message = 'Thank You 
-
-
-      <a href="http://localhost/mainproject/verify.php?key=$to"></a>
-        ';
-
-        $head='from: TEAMBUCKETLIST';
-        mail($to,$subject,$message,$head);
-
-
-
-    }
+      $subject = "Account Email Verification";
+      $message = "Thank You Mr $c_name for Registration. 
+      Click here to Activate your account 
+      http://localhost/webproject/verify.php?token=$token ";
     
-    $sel_cart = "select * from cart where IP_ADD='$c_ip'";
-    
-    $run_cart = oci_parse($con,$sel_cart);
+      $sender_email='from: TEAMBUCKETLIST';
+       
+       if(mail($to,$subject,$message,$sender_email))  
+       {
+           $_SESSION['msg'] = "Check Your Mail to activate your account";
+           header('location:customer_login.php');
 
-    oci_execute($run_cart);
-    
-    $check_cart = oci_fetch($run_cart);
-    
-    if($check_cart>0){
-        
-        /// If register have items in cart ///
-        
-        $_SESSION['CUSTOMER_EMAIL']=$c_email;
-        
-        echo "<script>alert('Please check your email and open the verification link.')</script>";
-        
-        echo "<script>window.open('checkout.php','_self')</script>";
-        
-    }else{
-        
-        /// If register without items in cart ///
-        
-        $_SESSION['CUSTOMER_EMAIL']=$c_email;
-        
-        echo "<script>alert('Please check your email and open the verification link..')</script>";
-        
+       }  
+       else
+       {
+           echo "Email sending failed";
+       }
+
+
+    // }
+ 
+        // $_SESSION['CUSTOMER_EMAIL']=$c_email;
+
+        echo "<script>alert('Check Your mail for verification')</script>";        
         echo "<script>window.open('index.php','_self')</script>";
-        
-    }
-    
+    }       
 }
-
-
 
 ?>

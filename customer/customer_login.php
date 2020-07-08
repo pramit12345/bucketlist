@@ -36,7 +36,8 @@ if(isset($_POST['login'])){
     
     $customer_pass = $_POST['c_pass'];
     
-    $select_customer = "select * from customer where CUSTOMER_EMAIL='$customer_email' AND CUSTOMER_PASSWORD='$customer_pass'";
+    $select_customer = "select * from customer where CUSTOMER_EMAIL='$customer_email' 
+    AND CUSTOMER_PASSWORD='$customer_pass' AND STATUS='ACTIVE'";
     
     $run_customer = oci_parse($con,$select_customer);
 
